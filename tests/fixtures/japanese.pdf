@@ -1,0 +1,40 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 320 160] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type0 /BaseFont /HeiseiKakuGo-W5 /Encoding /UniJIS-UCS2-H /DescendantFonts [6 0 R] >>
+endobj
+5 0 obj
+<< /Length 87 >>
+stream
+BT /F1 12 Tf 24 120 Td <65e5672c8a9e005000440046306e8aad307f8fbc307f78ba8a8d3002> Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Font /Subtype /CIDFontType0 /BaseFont /HeiseiKakuGo-W5 /CIDSystemInfo << /Registry (Adobe) /Ordering (Japan1) /Supplement 4 >> /DW 1000 /FontDescriptor 7 0 R >>
+endobj
+7 0 obj
+<< /Type /FontDescriptor /FontName /HeiseiKakuGo-W5 /Flags 4 /FontBBox [-92 -250 1010 922] /ItalicAngle 0 /Ascent 880 /Descent -120 /CapHeight 737 /StemV 114 >>
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000367 00000 n 
+0000000504 00000 n 
+0000000690 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+866
+%%EOF
