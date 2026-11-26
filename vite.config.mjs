@@ -6,6 +6,7 @@ import { handleApi } from './server/api.mjs';
 export default defineConfig(({ mode }) => {
   const env = { ...loadEnv(mode, process.cwd(), ''), ...process.env };
   return {
+    base: env.KOTOBANE_BASE || '/',
     plugins: [
       react(), tailwind(),
       {

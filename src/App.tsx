@@ -14,6 +14,7 @@ const pages = [
   { id: 'profiles', label: '文体プロファイル', icon: UserRound },
 ] as const;
 const dateFormat = new Intl.DateTimeFormat('ja-JP', { dateStyle: 'medium', timeStyle: 'short' });
+const pagesSite = import.meta.env.VITE_KOTOBANE_PAGES === 'true';
 
 export function App() {
   const [page, setPage] = useState<Page>('workspace');
@@ -51,6 +52,7 @@ export function App() {
   const dirty = snapshot !== text;
 
   useEffect(() => {
+    if (pagesSite) return;
     let cancelled = false;
     fetch('/api/config', { cache: 'no-store' }).then(async (response) => {
       if (!response.ok) return;
@@ -188,7 +190,7 @@ export function App() {
   return <div className="shell">
     <aside className="sidebar">
       <button className="brand" onClick={() => navigate('workspace')} aria-label="ことばね ホーム">
-        <img src="/icon.svg" alt="" /><span><strong>ことばね</strong><small>日本語文章スタジオ</small></span>
+        <img src={import.meta.env.BASE_URL + 'icon.svg'} alt="" /><span><strong>ことばね</strong><small>日本語文章スタジオ</small></span>
       </button>
       <nav className="navigation" aria-label="メインナビゲーション">{nav}</nav>
       <div className="sidebar-foot"><button onClick={() => setHelp(true)}><CircleHelp size={18} /><span>使い方</span></button><p>文章分析は端末内で処理</p></div>
@@ -247,8 +249,8 @@ export function App() {
           </div>
           <section className="card rewrite-card">
             <div className="card-heading"><Sparkles size={20} /><h2 ref={rewriteHeading} tabIndex={-1}>自然な文章に整える</h2></div>
-            <p>検出した箇所を手掛かりに書き換え、原文との違いを表示します。</p>
-            <form onSubmit={(event) => { event.preventDefault(); void rewrite(); }}>
+            {pagesSite ? <p>AIで書き換えるには、Node.js サーバーと Gemini または OpenAI の API 設定が必要です。 <a className="text-button" href="https://github.com/affksllkso/kotobane#api-設定">起動・API設定</a></p> : <p>検出した箇所を手掛かりに書き換え、原文との違いを表示します。</p>}
+            {!pagesSite && <form onSubmit={(event) => { event.preventDefault(); void rewrite(); }}>
               <fieldset disabled={pending || reading}>
                 <legend className="sr-only">リライト設定</legend>
                 <div className="rewrite-fields">
@@ -269,7 +271,7 @@ export function App() {
                   <button className="button primary" disabled={!text.trim() || limitCount > maxText || config[provider] === false || (mode === 'partial' && !selectedText.trim())} type="submit"><Sparkles size={16} />{pending ? '文章を整えています…' : '書き換え案を作る'}</button>
                 </div>
               </fieldset>
-            </form>
+            </form>}
           </section>
           <div ref={resultAnchor}>{revision && <RevisionView key={revision.before + '\u0000' + revision.after} revision={revision} onCopy={(value) => void copy(value)} onExport={(value, format) => void download(value, format)} onApply={applyRevision} />}</div>
         </>}
@@ -296,7 +298,7 @@ export function App() {
     </div>
     <dialog ref={helpDialog} onClose={() => setHelp(false)}>
       <div className="card-heading"><CircleHelp size={19} /><h2>使い方</h2><button className="icon-button" aria-label="閉じる" onClick={() => setHelp(false)}><X size={18} /></button></div>
-      <ol><li>下書きを貼り付けるか、PDF・Word（.docx）・テキストを読み込みます。</li><li>「AI文体をチェック」を押し、色付きの箇所を選んで検出理由を確認します。</li><li>「書き換え案を作る」を押し、原文と比較して採用するか決めます。</li></ol>
+      <ol><li>下書きを貼り付けるか、PDF・Word（.docx）・テキストを読み込みます。</li><li>「AI文体をチェック」を押し、色付きの箇所を選んで検出理由を確認します。</li>{!pagesSite && <li>「書き換え案を作る」を押し、原文と比較して採用するか決めます。</li>}</ol>
       <p>AI文体特徴スコアは定型表現や接続詞の反復などの集計値です。執筆者の特定や不正行為の判断には使えません。</p>
     </dialog>
     {notification && <div className={'toast ' + (notification.error ? 'toast-error' : '')} role={notification.error ? 'alert' : 'status'}>

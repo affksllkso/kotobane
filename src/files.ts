@@ -27,8 +27,9 @@ export async function readDocument(file: File) {
       const { default: worker } = await import('pdfjs-dist/build/pdf.worker.min.mjs?url');
       GlobalWorkerOptions.workerSrc = worker;
       const task = getDocument({
-        data: await file.arrayBuffer(), cMapUrl: '/pdf/cmaps/', cMapPacked: true,
-        standardFontDataUrl: '/pdf/standard_fonts/', wasmUrl: '/pdf/wasm/',
+        data: await file.arrayBuffer(), cMapUrl: import.meta.env.BASE_URL + 'pdf/cmaps/', cMapPacked: true,
+        standardFontDataUrl: import.meta.env.BASE_URL + 'pdf/standard_fonts/',
+        wasmUrl: import.meta.env.BASE_URL + 'pdf/wasm/',
         isEvalSupported: false,
       });
       try {

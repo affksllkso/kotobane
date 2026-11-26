@@ -4,6 +4,8 @@ AIが作成した日本語の下書きに見られる定型句や反復を検出
 
 ## 起動方法
 
+[GitHub Pages版](https://affksllkso.github.io/kotobane/)では、文体チェック、ファイル入出力、履歴、PWAをブラウザーで使えます。Gemini・OpenAI で書き換えるときは、以下の手順で Node.js サーバーを起動し、APIを設定してください。
+
 Node.js 22.13 以上と npm を用意し、この README があるフォルダーで実行します。
 
 ```sh
